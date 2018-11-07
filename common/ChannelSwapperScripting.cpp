@@ -25,13 +25,10 @@ OSErr ReadScriptParameters(Boolean* displayDialog)
 	PIReadDescriptor token = NULL;
 	DescriptorKeyID key = 0;
 	DescriptorTypeID type = 0;
-	//DescriptorUnitID units;
 	int32 flags = 0;
 	int32 channelMask;
-	//double percent;
-	//DescriptorEnumID disposition;
 	Boolean ignoreSelection;
-	DescriptorKeyIDArray array = { /*keyAmount, keyDisposition,*/ 0 };
+	DescriptorKeyIDArray array = { 0 };
 
 	if (displayDialog != NULL)
 		*displayDialog = gData->queryForParameters;
@@ -60,20 +57,6 @@ OSErr ReadScriptParameters(Boolean* displayDialog)
 						if (!err)
 							gParams->channelMask = channelMask;
 						break;
-					/*case keyAmount:
-						err = readProcs->getUnitFloatProc(token, &units, &percent);
-						if (!err)
-							gParams->percent = (int16)percent;
-						break;
-					case keyDisposition:
-						err = readProcs->getEnumeratedProc(token, &disposition);
-						if (!err)
-						{
-							gParams->disposition = ScriptToDialog(disposition);
-							CopyColor(gData->color, 
-								      gData->colorArray[gParams->disposition]);
-						}
-						break;*/
 					case keyIgnoreSelection:
 						err = readProcs->getBooleanProc(token, &ignoreSelection);
 						if (!err)
@@ -109,8 +92,6 @@ OSErr WriteScriptParameters(void)
 	PIWriteDescriptor token = NULL;
 	PIDescriptorHandle h;
 
-	//const double percent = gParams->percent;
-
 	PIDescriptorParameters*	descParams = gFilterRecord->descriptorParameters;
 	if (descParams == NULL) return err;
 	
@@ -126,14 +107,6 @@ OSErr WriteScriptParameters(void)
 			gParams->channelMask
 		);
 
-		/*writeProcs->putUnitFloatProc(token, 
-			                         keyAmount, 
-									 unitPercent, 
-									 &percent);
-		writeProcs->putEnumeratedProc(token, 
-			                          keyDisposition, 
-									  typeMood, 
-									  DialogToScript(gParams->disposition));*/
 		if (gParams->ignoreSelection)
 			writeProcs->putBooleanProc(token, 
 			                           keyIgnoreSelection, 
@@ -149,63 +122,5 @@ OSErr WriteScriptParameters(void)
 	}
 	return err;
 }
-
-
-
-//-------------------------------------------------------------------------------
-//
-// DialogToScript
-//
-// Convert a dialog variable to a scripting variable.
-// 
-//-------------------------------------------------------------------------------
-//int32 DialogToScript(int16 dialog)
-//{
-//	switch (dialog)
-//	{
-//		case 0:
-//			return dispositionClear;
-//			break;
-//		case 1:
-//			return dispositionCool;
-//			break;
-//		case 2:
-//			return dispositionHot;
-//			break;
-//		case 3:
-//			return dispositionSick;
-//			break;
-//	}
-//	return dispositionCool;
-//}
-
-
-
-//-------------------------------------------------------------------------------
-//
-// ScriptToDialog
-//
-// Convert a scripting variable to a dialog variable.
-// 
-//-------------------------------------------------------------------------------
-//int16 ScriptToDialog(int32 script)
-//{
-//	switch (script)
-//	{
-//		case dispositionClear:
-//			return 0;
-//			break;
-//		case dispositionCool:
-//			return 1;
-//			break;
-//		case dispositionHot:
-//			return 2;
-//			break;
-//		case dispositionSick:
-//			return 3;
-//			break;
-//	}
-//	return 1;
-//}
 
 // end ChannelSwapperScripting.cpp

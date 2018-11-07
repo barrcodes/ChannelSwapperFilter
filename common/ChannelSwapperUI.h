@@ -16,14 +16,12 @@
 
 const int16 kDOK = 1;
 const int16 kDCancel = 2;
-//const int16 kDEditText = 3;
 const int16 kDProxyItem = 5;
+// ID # 6 appears to be in use, as it failed to work for kDRed
 const int16 kDRed = 7;
 const int16 kDGreen = 8;
 const int16 kDBlue = 9;
 const int16 kDAlpha = 10;
-//const int16 kDFirstRadio = 7;
-//const int16 kDLastRadio = 10;
 const int16 kDEntireImage = 11;
 
 DLLExport BOOL __stdcall ChannelSwapperProc(HWND hDlg, UINT wMsg, WPARAM wParam, LPARAM lParam);

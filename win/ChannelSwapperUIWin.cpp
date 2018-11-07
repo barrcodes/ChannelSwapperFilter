@@ -54,19 +54,11 @@ DLLExport BOOL WINAPI ChannelSwapperProc(HWND hDlg,
 			UpdateProxyItemAndRecord(hDlg);
 
 			// set the dialog items based on the last values used
-			//SetDlgItemInt(hDlg, kDEditText, gParams->percent, TRUE);
-			/*CheckRadioButton(hDlg, 
-				             kDFirstRadio, 
-							 kDLastRadio, 
-				             kDFirstRadio + gParams->disposition);*/
 			InitColorCheckboxes(hDlg);
 			CheckDlgButton(hDlg, kDEntireImage, gParams->ignoreSelection);
 			ShowWindow(GetDlgItem(hDlg, kDEntireImage), 
 				       gFilterRecord->haveMask ? SW_SHOW : SW_HIDE );
-			//SendDlgItemMessage(hDlg, kDEditText, EM_SETSEL, 0, (LPARAM)-1);
-
-			//SetFocus(GetDlgItem(hDlg, kDEditText));
-
+			
 			// intentional fall through to the WM_PAINT message
 		case WM_PAINT:
 			if (*gResult == noErr)
@@ -84,21 +76,10 @@ DLLExport BOOL WINAPI ChannelSwapperProc(HWND hDlg,
 					if (cmd == BN_CLICKED)
 					{
 						DeleteProxyBuffer();
-						//DeleteChannelSwapperBuffer();
 						EndDialog(hDlg, item);
 						returnValue = TRUE;
 					}
 					break;
-				//case kDEditText:
-				//	if (cmd == EN_CHANGE)
-				//	{
-				//		/*gParams->percent = (short)GetDlgItemInt(hDlg, 
-				//			                                    kDEditText, 
-				//												NULL, 
-				//												TRUE);*/
-				//		UpdateProxyItem(hDlg);
-				//	}
-				//	break;
 				case kDEntireImage:
 					if (cmd == BN_CLICKED)
 					{
@@ -124,20 +105,7 @@ DLLExport BOOL WINAPI ChannelSwapperProc(HWND hDlg,
 					}
 					break;
 				default:
-					//if (item >= kDFirstRadio && item <= kDLastRadio)
-					//{
-					//	if (cmd == BN_CLICKED)
-					//	{
-					//		CheckRadioButton(hDlg, 
-					//			             kDFirstRadio, 
-					//						 kDLastRadio, 
-					//						 COMMANDID(wParam)); 
-					//		/*CopyColor(gData->color, 
-					//			      gData->colorArray[item - kDFirstRadio]);
-					//		gParams->disposition = (short)(wParam - kDFirstRadio);*/
-					//		UpdateProxyItem(hDlg);
-					//	}
-					//}
+					// do nothing for now
 					break;
 			}
 			returnValue = TRUE;
@@ -152,6 +120,7 @@ DLLExport BOOL WINAPI ChannelSwapperProc(HWND hDlg,
 	}
 	return returnValue;
 }
+
 
 //-------------------------------------------------------------------------------
 //
@@ -169,6 +138,7 @@ void InitColorCheckboxes(HWND hDlg)
 			selected);
 	}
 }
+
 
 //-------------------------------------------------------------------------------
 //
@@ -227,7 +197,6 @@ void UpdateProxyItemAndRecord(HWND hDlg)
 	GetProxyItemRect(hDlg);
 	SetupFilterRecordForProxy();
 	CreateProxyBuffer();
-	//CreateChannelSwapperBuffer(gData->proxyWidth, gData->proxyHeight);
 	UpdateProxyItem(hDlg);
 }
 

@@ -20,18 +20,12 @@
 typedef struct Parameters
 {
 	uint32 channelMask;
-	//int16 percent;
-	//int16 disposition;
 	Boolean ignoreSelection;
 } Parameters, *ParametersPtr;
 
 typedef struct Data
 {
-	/*FilterColor color;
-	FilterColor colorArray[4];*/
 	Boolean queryForParameters;
-	//BufferID channelSwapperBufferID;
-	//Ptr channelSwapperBuffer;
 	VRect proxyRect;
 	float scaleFactor;
 	BufferID proxyBufferID;
@@ -56,9 +50,6 @@ void SetColor(FilterColor& destination,
 			  const uint8 d);
 bool TestMaskBit(uint32 mask, uint8 bitIndex);
 bool FlipMaskBit(uint32 &mask, uint8 bitIndex);
-//void CreateChannelSwapperBuffer(const int32 width, const int32 height);
-//void UpdateChannelSwapperBuffer(const int32 width, const int32 height);
-//void DeleteChannelSwapperBuffer(void);
 void CreateProxyBuffer(void);
 extern "C" void ResetProxyBuffer(void);
 extern "C" void UpdateProxyBuffer(void);

@@ -29,10 +29,6 @@ SPErr ReadRegistryParameters(void)
 	PSActionDescriptorProcs* descriptorProcs = NULL;
 	PIActionDescriptor descriptor = NULL;
 	int32 channelMask;
-	//DescriptorUnitID unit;
-	//double percent;
-	//DescriptorEnumTypeID type;
-	//DescriptorEnumID disposition;
 	Boolean ignoreSelection;
 
 	if (basicSuite == NULL)
@@ -59,22 +55,6 @@ SPErr ReadRegistryParameters(void)
 
 	if (err) goto returnError;
 	gParams->channelMask = channelMask;
-
-	/*err = descriptorProcs->GetUnitFloat(descriptor, 
-		                                keyAmount, 
-										&unit, 
-										&percent);
-	if (err) goto returnError;
-	gParams->percent = (int16)percent;
-	
-	err = descriptorProcs->GetEnumerated(descriptor, 
-		                                 keyDisposition, 
-										 &type, 
-										 &disposition);
-	if (err) goto returnError;
-	gParams->disposition = ScriptToDialog(disposition);
-	CopyColor(gData->color, gData->colorArray[gParams->disposition]);
-	*/
 
 	err = descriptorProcs->GetBoolean(descriptor, 
 		                              keyIgnoreSelection, 
@@ -139,18 +119,6 @@ SPErr WriteRegistryParameters(void)
 
 	if (err) goto returnError;
 
-	/*err = descriptorProcs->PutUnitFloat(descriptor, 
-		                                keyAmount, 
-										unitPercent, 
-										(int32)gParams->percent);
-	if (err) goto returnError;
-	
-	err = descriptorProcs->PutEnumerated(descriptor, 
-		                                 keyDisposition, 
-										 typeMood, 
-										 DialogToScript(gParams->disposition));*/
-	if (err) goto returnError;
-	
 	err = descriptorProcs->PutBoolean(descriptor, 
 		                              keyIgnoreSelection, 
 									  gParams->ignoreSelection);

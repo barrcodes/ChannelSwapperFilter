@@ -31,18 +31,10 @@
 #define plugInDescription \
 	"Inverts color channels individually."
 
-//#define keyDisposition 		'disP'
 #define keyIgnoreSelection	'ignS'
-//#define typeMood			'mooD'
-//#define dispositionClear	'moD0'
-//#define dispositionCool		'moD1'
-//#define dispositionHot		'moD2'
-//#define dispositionSick		'moD3'
 
 #ifndef Rez
 OSErr ReadScriptParameters(Boolean* displayDialog);
 OSErr WriteScriptParameters(void);
-//int16 ScriptToDialog(int32 script);
-//int32 DialogToScript(int16 dialog);
 #endif
 #endif

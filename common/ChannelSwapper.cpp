@@ -277,8 +277,6 @@ void DoStart(void)
 	ReadRegistryParameters();
 
 	// save parameters
-	//int16 lastDisposition = gParams->disposition;
-	//int16 lastPercent = gParams->percent;
 	int32 lastChannelMask = gParams->channelMask;
 	Boolean lastIgnoreSelection = gParams->ignoreSelection;
 
@@ -303,8 +301,6 @@ void DoStart(void)
 	{
 		// restore if the user hit cancel
 		gParams->channelMask = lastChannelMask;
-		/*gParams->disposition = lastDisposition;
-		gParams->percent = lastPercent;*/
 		gParams->ignoreSelection = lastIgnoreSelection;
 		*gResult = userCanceledErr;
 	}
@@ -377,8 +373,6 @@ void DoFilter(void)
 	int32 rectWidth = filterRect.right - filterRect.left;
 	int32 rectHeight = filterRect.bottom - filterRect.top;
 
-	//CreateChannelSwapperBuffer(tileWidth, tileHeight);
-
 	// round up to the nearest horizontal and vertical tile count
 	int32 tilesVert = (tileHeight - 1 + rectHeight) / tileHeight;
 	int32 tilesHoriz = (tileWidth - 1 + rectWidth) / tileWidth;
@@ -400,8 +394,6 @@ void DoFilter(void)
 	{
 		for (int32 horizTile = 0; horizTile < tilesHoriz; horizTile++)
 		{
-			//UpdateChannelSwapperBuffer(tileWidth, tileHeight);
-
 			filterRect = GetFilterRect();
 			VRect inRect = GetInRect();
 
@@ -428,6 +420,7 @@ void DoFilter(void)
 
 			for (int16 plane = 0; plane < gFilterRecord->planes; plane++)
 			{
+				// Only filter channels that are masked by the filter parameters
 				if (!TestMaskBit(gParams->channelMask, plane))
 					continue;
 
@@ -438,14 +431,6 @@ void DoFilter(void)
 				// update the gFilterRecord with our latest request
 				*gResult = gFilterRecord->advanceState();
 				if (*gResult != noErr) return;
-
-				// muck with the pixels in the outData buffer
-				/*uint8 color = 255;
-				int16 expectedPlanes = CSPlanesFromMode(gFilterRecord->imageMode,
-					                                    0);
-
-				if (plane < expectedPlanes)
-					color = gData->color[plane];*/
 
 				ChannelSwapperRectangle(
 					gFilterRecord->outData,
@@ -467,7 +452,6 @@ void DoFilter(void)
 			}
 		}
 	}
-	//DeleteChannelSwapperBuffer();
 }
 
 
@@ -495,7 +479,6 @@ void ChannelSwapperRectangle(
 	uint16* bigPixel = (uint16*)data;
 	float* fPixel = (float*)data;
 	uint8* maskPixel = (uint8*)mask;
-	//Ptr channelSwapper = gData->channelSwapperBuffer;
 
 	int32 rectHeight = tileRect.bottom - tileRect.top;
 	int32 rectWidth = tileRect.right - tileRect.left;
@@ -509,7 +492,7 @@ void ChannelSwapperRectangle(
 			if (maskPixel != NULL && !(*maskPixel) && !gParams->ignoreSelection)
 				leaveItAlone = true;
 			
-			if (/**channelSwapper && */!leaveItAlone)
+			if (!leaveItAlone)
 			{
 				if (depth == 32)
 					*fPixel = 1.0 - *fPixel;
@@ -521,7 +504,6 @@ void ChannelSwapperRectangle(
 			pixel++;
 			bigPixel++;
 			fPixel++;
-			//channelSwapper++;
 			if (maskPixel != NULL)
 				maskPixel++;
 		}
@@ -561,8 +543,6 @@ void CreateParametersHandle(void)
 void InitParameters(void)
 {
 	gParams->channelMask = 0;
-	//gParams->percent = 50;
-	//gParams->disposition = 1;
 	gParams->ignoreSelection = false;
 }
 
@@ -593,115 +573,18 @@ void CreateDataHandle(void)
 //-------------------------------------------------------------------------------
 void InitData(void)
 {
-	/*CopyColor(gData->colorArray[0], gFilterRecord->backColor);
-	SetColor(gData->colorArray[1], 0, 0, 255, 0);
-	SetColor(gData->colorArray[2], 255, 0, 0, 0);
-	SetColor(gData->colorArray[3], 0, 255, 0, 0);
-	for(int a = 1; a < 4; a++)
-		ConvertRGBColorToMode(gFilterRecord->imageMode, gData->colorArray[a]);
-	CopyColor(gData->color, gData->colorArray[gParams->disposition]);*/
 	gData->proxyRect.left = 0;
 	gData->proxyRect.right = 0;
 	gData->proxyRect.top = 0;
 	gData->proxyRect.bottom = 0;
 	gData->scaleFactor = 1.0;
 	gData->queryForParameters = true;
-	//gData->channelSwapperBufferID = NULL;
-	//gData->channelSwapperBuffer = NULL;
 	gData->proxyBufferID = NULL;
 	gData->proxyBuffer = NULL;
 	gData->proxyWidth = 0;
 	gData->proxyHeight = 0;
 	gData->proxyPlaneSize = 0;
 }
-
-
-
-//-------------------------------------------------------------------------------
-//
-// CreateChannelSwapperBuffer
-//
-// Updates the channelSwapper array varaibles in the gData block. This allows us to 
-// process one plane at a time
-//
-// Global Inputs and Outputs:
-//		BufferID gData->channelSwapperBufferID	ID number of the current buffer in use
-//											if it exists we must delete and get
-//											another one.
-//
-//		Ptr		 gData->channelSwapperBuffer	Actual array containing the channelSwapper
-//										from the current settings of
-//										gParams->percent
-//			
-//-------------------------------------------------------------------------------
-//void CreateChannelSwapperBuffer(const int32 width, const int32 height)
-//{
-//	BufferProcs *bufferProcs = gFilterRecord->bufferProcs;
-//
-//	bufferProcs->allocateProc(width * height, &gData->channelSwapperBufferID);
-//	gData->channelSwapperBuffer = bufferProcs->lockProc(gData->channelSwapperBufferID, true);
-//}
-
-
-
-//-------------------------------------------------------------------------------
-//
-// UpdateChannelSwapperBuffer
-//
-// Updates the channelSwapper buffer array varaibles in the gData block. This allows us
-// to process one plane at a time
-//
-// Global Inputs and Outputs:
-//		Ptr		 gData->channelSwapperBuffer	Actual array containing the channelSwapper
-//										from the current settings of
-//										gParams->percent
-//			
-//-------------------------------------------------------------------------------
-//void UpdateChannelSwapperBuffer(const int32 width, const int32 height)
-//{
-//	if (gData->channelSwapperBuffer != NULL)
-//	{
-//		Ptr channelSwapper = gData->channelSwapperBuffer;
-//		for (int32 x = 0; x < width; x++)
-//		{
-//			for (int32 y = 0; y < height; y++)
-//			{
-//				*channelSwapper = ((unsigned16) rand()) % 100 < gParams->percent;
-//				channelSwapper++;
-//			}
-//		}
-//	}
-//}
-
-
-
-//-------------------------------------------------------------------------------
-//
-// DeleteChannelSwapperBuffer
-//
-// Deletes the channelSwapper array varaibles in the gData block.
-//
-// Global Inputs and Outputs:
-//		BufferID gData->channelSwapperBufferID	ID number of the current buffer in use
-//											if it exists we must delete and get
-//											another one.
-//
-//		Ptr		 gData->channelSwapperBuffer	Actual array containing the channelSwapper
-//										from the current settings of
-//										gParams->percent
-//			
-//-------------------------------------------------------------------------------
-//void DeleteChannelSwapperBuffer(void)
-//{
-//	if (gData->channelSwapperBufferID != NULL)
-//	{
-//		gFilterRecord->bufferProcs->unlockProc(gData->channelSwapperBufferID);
-//		gFilterRecord->bufferProcs->freeProc(gData->channelSwapperBufferID);
-//		gData->channelSwapperBufferID = NULL;
-//		gData->channelSwapperBuffer = NULL;
-//	}
-//}
-
 
 
 //-------------------------------------------------------------------------------
@@ -958,41 +841,12 @@ void CopyRect(VRect& destination, const VRect& source)
 }
 
 
-
-//-------------------------------------------------------------------------------
-//
-// CopyColor
-//
-// Utility routine for setting a FilterColor array from a FilterColor
-//
-//-------------------------------------------------------------------------------
-void CopyColor(FilterColor& destination, const FilterColor& source)
-{
-	for (int a = 0; a < sizeof(FilterColor); a++)
-		destination[a] = source[a];
-}
-
-
-
-//-------------------------------------------------------------------------------
-//
-// SetColor
-//
-// Utility routine for setting a FilterColor array from 4 color components
-//
-//-------------------------------------------------------------------------------
-void SetColor(FilterColor& destination, 
-			  const uint8 a, 
-			  const uint8 b, 
-			  const uint8 c, 
-			  const uint8 d)
-{
-	destination[0] = a;
-	destination[1] = b;
-	destination[2] = c;
-	destination[3] = d;
-}
-
+//------------------------------------------------------------------------------
+// 
+// Tests a bitmask at a given bit index
+// i.e 0x110 would return true if bitIndex were 1 or 2, but false otherwise
+// 
+//------------------------------------------------------------------------------
 bool TestMaskBit(uint32 mask, uint8 bitIndex)
 {
 	if (bitIndex > 31)
@@ -1001,6 +855,7 @@ bool TestMaskBit(uint32 mask, uint8 bitIndex)
 	bool selected = (mask & (1 << bitIndex)) > 0;
 	return selected;
 }
+
 
 //------------------------------------------------------------------------------
 // 
@@ -1102,7 +957,6 @@ extern "C" void UpdateProxyBuffer(void)
 
 	if (localData != NULL)
 	{
-		//UpdateChannelSwapperBuffer(gData->proxyWidth, gData->proxyHeight);
 		for (int16 plane = 0; plane < gFilterRecord->planes; plane++)
 		{
 			if (!TestMaskBit(gParams->channelMask, plane))
@@ -1110,10 +964,6 @@ extern "C" void UpdateProxyBuffer(void)
 				goto increment;
 			}
 
-			/*uint8 color = 255;
-			uint16 expectedPlanes = CSPlanesFromMode(gFilterRecord->imageMode, 0); 
-			if (plane < expectedPlanes)
-				color = gData->color[plane];*/
 			ChannelSwapperRectangle(localData, 
 				              gData->proxyWidth, 
 							  gFilterRecord->maskData, 
