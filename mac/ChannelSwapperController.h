@@ -20,40 +20,20 @@ OSStatus orderWindowFrontChannelSwapper(void);
 http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/PreferencePanes/Tasks/Conflicts.html
 */
 
-// sub class the text field so proxy updates occur on each key
-//@interface ChannelSwapperTextField : NSTextField
-//{
-//}
-//- (void) keyUp: (NSEvent *) theEvent;
-//@end
-
 // sub class the dialog so all things work
 @interface ChannelSwapperController : NSObject 
 {
     id channelSwapperWindow;
-//    IBOutlet ChannelSwapperTextField * textField;
-//    id dispositionClear;
-//    id dispositionCool;
-//    id dispositionHot;
-//    id dispositionSick;
     IBOutlet NSButton *channelR;
     IBOutlet NSButton *channelG;
     IBOutlet NSButton *channelB;
     IBOutlet NSButton *channelA;
-    //id channelR;
-    //id channelG;
-    //id channelB;
-    //id channelA;
 	id proxyPreview;
-	
-//    NSString * amountValue;
 	
 }
 - (void) updateProxy;
-//- (void) updateAmountValue;
 - (void) updateCursor;
 - (int) showWindow;
-//- (NSString *) getAmountValue;
 + (ChannelSwapperController *) channelSwapperController;
 @end
 
