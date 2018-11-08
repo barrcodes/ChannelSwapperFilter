@@ -31,21 +31,21 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 @interface ChannelSwapperController : NSObject 
 {
     id channelSwapperWindow;
-    IBOutlet ChannelSwapperTextField * textField;
-	id dispositionClear;
-	id dispositionCool;
-	id dispositionHot;
-	id dispositionSick;
+//    IBOutlet ChannelSwapperTextField * textField;
+//    id dispositionClear;
+//    id dispositionCool;
+//    id dispositionHot;
+//    id dispositionSick;
 	id proxyPreview;
 	
-	NSString * amountValue;
+//    NSString * amountValue;
 	
 }
 - (void) updateProxy;
-- (void) updateAmountValue;
+//- (void) updateAmountValue;
 - (void) updateCursor;
 - (int) showWindow;
-- (NSString *) getAmountValue;
+//- (NSString *) getAmountValue;
 + (ChannelSwapperController *) channelSwapperController;
 @end
 

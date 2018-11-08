@@ -32,7 +32,7 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
     self = [super initWithFrame:frame];
     if (self) 
 	{
-		currentColor = [NSColor clearColor];
+//        currentColor = [NSColor clearColor];
 		currentZoomState = ZoomCommandUninited;
 		NSLog(@"ChannelSwapper SetColor to clearColor");
     }
@@ -49,30 +49,30 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 	return YES;
 }
 
-- (void)setDispositionColor:(int16)newColor
-{
-	NSLog(@"ChannelSwapper start setColor to %d", newColor);
-	switch (newColor) 
-	{
-		case 0:
-			currentColor = [NSColor clearColor];
-			NSLog(@"ChannelSwapper end setColor to clearColor");
-			break;
-		default:
-		case 1:
-			currentColor = [NSColor blueColor];
-			NSLog(@"ChannelSwapper end setColor to blueColor");
-			break;
-		case 2:
-			currentColor = [NSColor redColor];
-			NSLog(@"ChannelSwapper end setColor to redColor");
-			break;
-		case 3:
-			currentColor = [NSColor greenColor];
-			NSLog(@"ChannelSwapper end setColor to greenColor");
-			break;
-	}
-}
+//- (void)setDispositionColor:(int16)newColor
+//{
+//    NSLog(@"ChannelSwapper start setColor to %d", newColor);
+//    switch (newColor)
+//    {
+//        case 0:
+//            currentColor = [NSColor clearColor];
+//            NSLog(@"ChannelSwapper end setColor to clearColor");
+//            break;
+//        default:
+//        case 1:
+//            currentColor = [NSColor blueColor];
+//            NSLog(@"ChannelSwapper end setColor to blueColor");
+//            break;
+//        case 2:
+//            currentColor = [NSColor redColor];
+//            NSLog(@"ChannelSwapper end setColor to redColor");
+//            break;
+//        case 3:
+//            currentColor = [NSColor greenColor];
+//            NSLog(@"ChannelSwapper end setColor to greenColor");
+//            break;
+//    }
+//}
 
 - (CGFloat)getCurrentScaleFactor
 {
@@ -188,7 +188,6 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 	
 	SetupFilterRecordForProxy();
 	CreateProxyBuffer();
-	CreateChannelSwapperBuffer(gData->proxyWidth, gData->proxyHeight);
 	ResetProxyBuffer();
 	UpdateProxyBuffer();
 	

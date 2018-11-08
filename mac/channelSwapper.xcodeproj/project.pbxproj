@@ -123,6 +123,7 @@
 		64CF8E9F0AA3A6F300120C5A /* ASConfig.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ASConfig.h; sourceTree = "<group>"; };
 		64FC86591118F81900F6232D /* JSScriptingSuite.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JSScriptingSuite.h; sourceTree = "<group>"; };
 		8D01CCD20486CAD60068D4B7 /* ChannelSwapper.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChannelSwapper.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0E8D4F82194610E00C8071C /* MacDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacDefines.h; sourceTree = "<group>"; };
 		E29FC5AE0B0ADACC00614548 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,10 +144,11 @@
 		089C166AFE841209C02AAC07 /* ChannelSwapper */ = {
 			isa = PBXGroup;
 			children = (
-				64AFE07F1106E463003F8A9F /* ChannelSwapperController.m */,
-				64AFE0801106E463003F8A9F /* ChannelSwapperProxyView.m */,
-				64AFE0811106E463003F8A9F /* ChannelSwapperProxyView.h */,
+				E0E8D4F82194610E00C8071C /* MacDefines.h */,
 				64AFE0821106E463003F8A9F /* ChannelSwapperController.h */,
+				64AFE07F1106E463003F8A9F /* ChannelSwapperController.m */,
+				64AFE0811106E463003F8A9F /* ChannelSwapperProxyView.h */,
+				64AFE0801106E463003F8A9F /* ChannelSwapperProxyView.m */,
 				6427BDB309F929E400223601 /* ChannelSwapper.h */,
 				6427BDB909F929E400223601 /* ChannelSwapperUI.h */,
 				6427BDB609F929E400223601 /* ChannelSwapperRegistry.h */,
@@ -481,7 +483,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				INFOPLIST_FILE = ../../../common/resources/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PLUGIN_TYPE = 8BFM;
 				PRODUCT_NAME = ChannelSwapper;
 				SDKROOT = macosx10.11;
@@ -525,7 +527,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				INFOPLIST_FILE = ../../../common/resources/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PLUGIN_TYPE = 8BFM;
 				PRODUCT_NAME = ChannelSwapper;
 				REZ_PREFIX_FILE = "$(SRCROOT)/../../../common/includes/MachOMacrezXcode.h";

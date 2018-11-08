@@ -1,2 +1,6 @@
 # vs generated files
 win/.vs/
+
+# xcode generated files
+mac/*.xcodeproj/xcuserdata/
+mac/*.xcodeproj/project.xcworkspace/

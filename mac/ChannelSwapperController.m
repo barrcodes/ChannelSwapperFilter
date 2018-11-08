@@ -20,17 +20,17 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 */
 
 // get the current value and force an update
-@implementation ChannelSwapperTextField
-	
-- (void)keyUp:(NSEvent *)theEvent 
-{
-	NSLog(@"ChannelSwapper start keyUp, %d", [theEvent keyCode]);
-	[gChannelSwapperController updateAmountValue];
-	[gChannelSwapperController updateProxy];
-	NSLog(@"ChannelSwapper end keyUp, %d", gParams->percent);
-}
-
-@end
+//@implementation ChannelSwapperTextField
+//
+//- (void)keyUp:(NSEvent *)theEvent
+//{
+//    NSLog(@"ChannelSwapper start keyUp, %d", [theEvent keyCode]);
+//    [gChannelSwapperController updateAmountValue];
+//    [gChannelSwapperController updateProxy];
+//    NSLog(@"ChannelSwapper end keyUp, %d", gParams->percent);
+//}
+//
+//@end
 
 /* Make sure this is unique to you and everyone you might encounter, search for
 "Preventing Name Conflicts" or use this link
@@ -50,7 +50,7 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 {
     self = [super init];
 
-	amountValue = [NSString stringWithFormat:@"%d", gParams->percent];
+//    amountValue = [NSString stringWithFormat:@"%d", gParams->percent];
     
     NSBundle * plugin = [NSBundle bundleForClass:[self class]];
 
@@ -63,40 +63,40 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
     
 	gChannelSwapperController = self;
 
-    [textField setStringValue:amountValue];
+//    [textField setStringValue:amountValue];
 
-	switch (gParams->disposition) 
-	{
-		case 0: // clear
-			[dispositionClear setState:true];
-			[dispositionCool setState:false];
-			[dispositionHot setState:false];
-			[dispositionSick setState:false];
-			break;
-		case 2: // hot
-			[dispositionClear setState:false];
-			[dispositionCool setState:false];
-			[dispositionHot setState:true];
-			[dispositionSick setState:false];
-			break;
-		case 3: // sick
-			[dispositionClear setState:false];
-			[dispositionCool setState:false];
-			[dispositionHot setState:false];
-			[dispositionSick setState:true];
-			break;
-		default:
-		case 1: // cool
-			[dispositionClear setState:false];
-			[dispositionCool setState:true];
-			[dispositionHot setState:false];
-			[dispositionSick setState:false];
-		break;
-	}
+//    switch (gParams->disposition)
+//    {
+//        case 0: // clear
+//            [dispositionClear setState:true];
+//            [dispositionCool setState:false];
+//            [dispositionHot setState:false];
+//            [dispositionSick setState:false];
+//            break;
+//        case 2: // hot
+//            [dispositionClear setState:false];
+//            [dispositionCool setState:false];
+//            [dispositionHot setState:true];
+//            [dispositionSick setState:false];
+//            break;
+//        case 3: // sick
+//            [dispositionClear setState:false];
+//            [dispositionCool setState:false];
+//            [dispositionHot setState:false];
+//            [dispositionSick setState:true];
+//            break;
+//        default:
+//        case 1: // cool
+//            [dispositionClear setState:false];
+//            [dispositionCool setState:true];
+//            [dispositionHot setState:false];
+//            [dispositionSick setState:false];
+//        break;
+//    }
 	
-	NSLog(@"ChannelSwapper Trying to set initial disposition");
+//    NSLog(@"ChannelSwapper Trying to set initial disposition");
 
-	[(ChannelSwapperProxyView*)proxyPreview setDispositionColor:gParams->disposition];
+//    [(ChannelSwapperProxyView*)proxyPreview setDispositionColor:gParams->disposition];
 
 	NSLog(@"ChannelSwapper Trying to set setNeedsDisplay");
 
@@ -115,22 +115,22 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 	return b;
 }
 
-- (NSString *) getAmountValue 
-{
-	return amountValue;
-}
+//- (NSString *) getAmountValue 
+//{
+//    return amountValue;
+//}
 
-- (void) updateAmountValue 
-{
-	amountValue = [textField stringValue];
-	NSLog(@"ChannelSwapper updateAmountValue channelSwapper %@", amountValue);
-	gParams->percent = [amountValue intValue];
-	NSLog(@"ChannelSwapper Percent after updateAmountValue: %d", gParams->percent);
-}
+//- (void) updateAmountValue
+//{
+//    amountValue = [textField stringValue];
+//    NSLog(@"ChannelSwapper updateAmountValue channelSwapper %@", amountValue);
+//    gParams->percent = [amountValue intValue];
+//    NSLog(@"ChannelSwapper Percent after updateAmountValue: %d", gParams->percent);
+//}
 
 - (IBAction) okPressed: (id) sender 
 {
-	amountValue = [textField stringValue];
+//    amountValue = [textField stringValue];
 	[NSApp stopModalWithCode:1];
 	NSLog(@"ChannelSwapper after nsapp stopmodal");
 }
@@ -142,38 +142,38 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 	NSLog(@"ChannelSwapper after nsapp abortmodal");
 }
 
-- (IBAction) clearPressed: (id) sender 
-{
-	NSLog(@"ChannelSwapper clear pressed");
-	gParams->disposition = 0;
-	[gChannelSwapperController updateProxy];
-}
-
-- (IBAction) coolPressed: (id) sender 
-{
-	NSLog(@"ChannelSwapper cool pressed");
-	gParams->disposition = 1;
-	[gChannelSwapperController updateProxy];
-}
-
-- (IBAction) hotPressed: (id) sender 
-{
-	NSLog(@"ChannelSwapper hot pressed");
-	gParams->disposition = 2;
-	[gChannelSwapperController updateProxy];
-}
-
-- (IBAction) sickPressed: (id) sender 
-{
-	NSLog(@"ChannelSwapper sick pressed");
-	gParams->disposition = 3;
-	[gChannelSwapperController updateProxy];
-}
+//- (IBAction) clearPressed: (id) sender
+//{
+//    NSLog(@"ChannelSwapper clear pressed");
+////    gParams->disposition = 0;
+//    [gChannelSwapperController updateProxy];
+//}
+//
+//- (IBAction) coolPressed: (id) sender
+//{
+//    NSLog(@"ChannelSwapper cool pressed");
+////    gParams->disposition = 1;
+//    [gChannelSwapperController updateProxy];
+//}
+//
+//- (IBAction) hotPressed: (id) sender
+//{
+//    NSLog(@"ChannelSwapper hot pressed");
+//    gParams->disposition = 2;
+//    [gChannelSwapperController updateProxy];
+//}
+//
+//- (IBAction) sickPressed: (id) sender
+//{
+//    NSLog(@"ChannelSwapper sick pressed");
+//    gParams->disposition = 3;
+//    [gChannelSwapperController updateProxy];
+//}
 
 - (void) updateProxy 
 {
-	CopyColor(gData->color, gData->colorArray[gParams->disposition]);
-	[(ChannelSwapperProxyView*)proxyPreview setDispositionColor:gParams->disposition];
+//    CopyColor(gData->color, gData->colorArray[gParams->disposition]);
+//    [(ChannelSwapperProxyView*)proxyPreview setDispositionColor:gParams->disposition];
 	[proxyPreview setNeedsDisplay:YES];
 }
 

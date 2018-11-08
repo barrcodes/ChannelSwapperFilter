@@ -13,6 +13,7 @@
 
 #include "PITypes.h"
 #include "DialogUtilities.h"
+#include "MacDefines.h"
 
 const int16 kDOK = 1;
 const int16 kDCancel = 2;

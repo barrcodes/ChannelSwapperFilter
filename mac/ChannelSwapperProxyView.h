@@ -28,12 +28,12 @@ typedef enum
 http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/PreferencePanes/Tasks/Conflicts.html
 */
 @interface ChannelSwapperProxyView : NSView {
-	NSColor * currentColor;
+//    NSColor * currentColor;
 	ZoomCommandState currentZoomState;
 }
 
 - (CGFloat)getCurrentScaleFactor;
-- (void)setDispositionColor:(int16)newColor;
+//- (void)setDispositionColor:(int16)newColor;
 - (BOOL)isFlipped;
 
 
