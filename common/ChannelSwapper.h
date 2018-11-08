@@ -48,8 +48,11 @@ void SetColor(FilterColor& destination,
 			  const uint8 b, 
 			  const uint8 c, 
 			  const uint8 d);
-bool TestMaskBit(uint32 mask, uint8 bitIndex);
+void SetMaskBit(uint32 &mask, uint8 bitIndex, bool isActive);
+void SetMaskBitInactive(uint32 &mask, uint8 bitIndex);
+void SetMaskBitActive(uint32 &mask, uint8 bitIndex);
 bool FlipMaskBit(uint32 &mask, uint8 bitIndex);
+bool TestMaskBit(uint32 mask, uint8 bitIndex);
 void CreateProxyBuffer(void);
 extern "C" void ResetProxyBuffer(void);
 extern "C" void UpdateProxyBuffer(void);

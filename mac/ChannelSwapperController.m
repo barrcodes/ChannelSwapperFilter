@@ -63,8 +63,17 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
     
 	gChannelSwapperController = self;
 
-//    [textField setStringValue:amountValue];
+    bool rSelected = TestMaskBit(gParams->channelMask, 0);
+    bool gSelected = TestMaskBit(gParams->channelMask, 1);
+    bool bSelected = TestMaskBit(gParams->channelMask, 2);
+    bool aSelected = TestMaskBit(gParams->channelMask, 3);
+    [channelR setState:rSelected];
+    [channelG setState:gSelected];
+    [channelB setState:bSelected];
+    [channelA setState:aSelected];
 
+//    [textField setStringValue:amountValue];
+//
 //    switch (gParams->disposition)
 //    {
 //        case 0: // clear
@@ -140,6 +149,46 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 	NSLog(@"ChannelSwapper cancel pressed");
 	[NSApp stopModalWithCode:0];
 	NSLog(@"ChannelSwapper after nsapp abortmodal");
+}
+
+- (IBAction)channelRPressed:(id)sender
+{
+    NSLog(@"Channel R pressed");
+    NSControlStateValue state = channelR.state;
+    SetMaskBit(gParams->channelMask, 0, state == NSControlStateValueOn);
+    //bool selected = FlipMaskBit(gParams->channelMask, 0);
+    //[channelR setState:selected];
+    [gChannelSwapperController updateProxy];
+}
+
+- (IBAction)channelGPressed:(id)sender
+{
+    NSLog(@"Channel G pressed");
+    NSControlStateValue state = channelG.state;
+    SetMaskBit(gParams->channelMask, 1, state == NSControlStateValueOn);
+    //bool selected = FlipMaskBit(gParams->channelMask, 1);
+    //[channelG setState:selected];
+    [gChannelSwapperController updateProxy];
+}
+
+- (IBAction)channelBPressed:(id)sender
+{
+    NSLog(@"Channel B pressed");
+    NSControlStateValue state = channelB.state;
+    SetMaskBit(gParams->channelMask, 2, state == NSControlStateValueOn);
+    //bool selected = FlipMaskBit(gParams->channelMask, 2);
+    //[channelB setState:selected];
+    [gChannelSwapperController updateProxy];
+}
+
+- (IBAction)channelAPressed:(id)sender
+{
+    NSLog(@"Channel A pressed");
+    NSControlStateValue state = channelA.state;
+    SetMaskBit(gParams->channelMask, 3, state == NSControlStateValueOn);
+    //bool selected = FlipMaskBit(gParams->channelMask, 3);
+    //[channelA setState:selected];
+    [gChannelSwapperController updateProxy];
 }
 
 //- (IBAction) clearPressed: (id) sender

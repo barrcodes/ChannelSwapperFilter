@@ -21,11 +21,11 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 */
 
 // sub class the text field so proxy updates occur on each key
-@interface ChannelSwapperTextField : NSTextField 
-{
-}
-- (void) keyUp: (NSEvent *) theEvent; 
-@end
+//@interface ChannelSwapperTextField : NSTextField
+//{
+//}
+//- (void) keyUp: (NSEvent *) theEvent;
+//@end
 
 // sub class the dialog so all things work
 @interface ChannelSwapperController : NSObject 
@@ -36,6 +36,14 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 //    id dispositionCool;
 //    id dispositionHot;
 //    id dispositionSick;
+    IBOutlet NSButton *channelR;
+    IBOutlet NSButton *channelG;
+    IBOutlet NSButton *channelB;
+    IBOutlet NSButton *channelA;
+    //id channelR;
+    //id channelG;
+    //id channelB;
+    //id channelA;
 	id proxyPreview;
 	
 //    NSString * amountValue;

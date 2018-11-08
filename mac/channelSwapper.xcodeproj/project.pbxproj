@@ -486,7 +486,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PLUGIN_TYPE = 8BFM;
 				PRODUCT_NAME = ChannelSwapper;
-				SDKROOT = macosx10.11;
+				SDKROOT = macosx10.13;
 				SYMROOT = ../../../Output/Mac/Debug/;
 				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = plugin;
@@ -531,7 +531,7 @@
 				PLUGIN_TYPE = 8BFM;
 				PRODUCT_NAME = ChannelSwapper;
 				REZ_PREFIX_FILE = "$(SRCROOT)/../../../common/includes/MachOMacrezXcode.h";
-				SDKROOT = macosx10.11;
+				SDKROOT = macosx10.13;
 				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = plugin;
 			};

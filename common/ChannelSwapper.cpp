@@ -856,6 +856,32 @@ bool TestMaskBit(uint32 mask, uint8 bitIndex)
 	return selected;
 }
 
+void SetMaskBit(uint32 &mask, uint8 bitIndex, bool isActive)
+{
+    if (isActive)
+        SetMaskBitActive(mask, bitIndex);
+    else
+        SetMaskBitInactive(mask, bitIndex);
+}
+
+void SetMaskBitActive(uint32 &mask, uint8 bitIndex)
+{
+    if (bitIndex > 31)
+        return;
+    
+    uint32 bitMask = 1 << bitIndex;
+    mask |= bitMask;
+}
+
+void SetMaskBitInactive(uint32 &mask, uint8 bitIndex)
+{
+    if (bitIndex > 31)
+        return;
+    
+    uint32 bitMask = 1 << bitIndex;
+    bitMask ^= UINT32_MAX;
+    mask &= bitMask;
+}
 
 //------------------------------------------------------------------------------
 // 
